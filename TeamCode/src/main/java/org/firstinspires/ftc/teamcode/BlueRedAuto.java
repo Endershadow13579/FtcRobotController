@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @Autonomous(name = "BasicRedBlueOpMode (Blocks to Java)")
+@Disabled
 public class BlueRedAuto extends LinearOpMode {
 
     private BNO055IMU imu;
@@ -82,19 +84,32 @@ public class BlueRedAuto extends LinearOpMode {
         // Wait for start command from Driver Station.
         waitForStart();
         if (opModeIsActive()) {
-//            Drive_to_Point("sl",100,false);
-            liftEncoder(1, 3, 6, true);
-            Drive_to_Point("sb", 9, true);
+
+//
+//            Drive_to_Point("sb", 9, true);
+//
 //            Drive_to_Point("sb", 100, true);
-//            while (imu.getAngularOrientation().firstAngle > -88) {
+//            while (imu.getAngularOrientation().firstAngle > -89) {
 //                Drive("tr");
-//                telemetry.addData("Orientation: ", im
-//                u.getAngularOrientation().firstAngle);
+//                telemetry.addData("Orientation: ", imu.getAngularOrientation().firstAngle);
 //                telemetry.update();
 //            }
-//            Drive("n");
-//            liftEncoder(1, 18, 6, true);
-//            Drive_to_Point("sr", 780, true);
+//           Drive("n");
+            liftEncoder(1, 18, 6, true);
+            while(sr.getDistance(DistanceUnit.MM)<1500){
+                Drive("sl");
+                if(sr.getDistance(DistanceUnit.MM)<800){
+                    lc.setPosition(0);
+                    rc.setPosition(1);
+
+                }
+                else{
+                    lc.setPosition(1);
+                    rc.setPosition(0);
+
+                }
+            }
+            Drive_to_Point("sr", 780, true);
 //            Drive_to_Point("sf", 767, true);
 //            liftEncoder(1, 10, 6, true);
 //            liftEncoder(1, 17, 6, false);
@@ -135,15 +150,15 @@ public class BlueRedAuto extends LinearOpMode {
      */
     private void Drive(String x) {
         if (x.equals("f")) {
-            lb.setPower(0.35);
-            lf.setPower(0.36);
-            rb.setPower(0.3);
-            rf.setPower(0.3);
+            lb.setPower(0.55);
+            lf.setPower(0.56);
+            rb.setPower(-0.5);
+            rf.setPower(-0.5);
         } else if (x.equals("b")) {
             lb.setPower(-0.33);
             lf.setPower(-0.34);
-            rb.setPower(-0.28);
-            rf.setPower(-0.28);
+            rb.setPower(0.28);
+            rf.setPower(0.28);
         } else if (x.equals("sr")) {
             lf.setPower(-0.75);
             lb.setPower(0.85);
@@ -157,13 +172,13 @@ public class BlueRedAuto extends LinearOpMode {
         } else if (x.equals("tr")) {
             lb.setPower(0.25);
             lf.setPower(0.25);
-            rb.setPower(-0.25);
-            rf.setPower(-0.25);
+            rb.setPower(0.25);
+            rf.setPower(0.25);
         } else if (x.equals("tl")) {
             lb.setPower(-0.25);
             lf.setPower(-0.25);
-            rb.setPower(0.25);
-            rf.setPower(0.25);
+            rb.setPower(-0.25);
+            rf.setPower(-0.25);
         } else {
             lb.setPower(0);
             lf.setPower(0);
