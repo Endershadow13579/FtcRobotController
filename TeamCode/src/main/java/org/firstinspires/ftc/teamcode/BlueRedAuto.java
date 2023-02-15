@@ -64,7 +64,7 @@ public class BlueRedAuto extends LinearOpMode {
         COUNTS_PER_INCH = (Counts_Per_Motor_Rev * Drive_Gear_Reduction) / Wheel_Circumference_Inches;
         past_point = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
         programFinished = false;
-        lb.setDirection(DcMotorSimple.Direction.REVERSE);
+        lb.setDirection(DcMotorSimple.Direction.FORWARD);
         lf.setDirection(DcMotorSimple.Direction.FORWARD);
         rb.setDirection(DcMotorSimple.Direction.FORWARD);
         rf.setDirection(DcMotorSimple.Direction.FORWARD);
