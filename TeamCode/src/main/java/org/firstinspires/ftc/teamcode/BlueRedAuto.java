@@ -77,14 +77,14 @@ public class BlueRedAuto extends LinearOpMode {
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         telemetry.addData("Orientation: ", imu.getAngularOrientation());
-        telemetry.addData("Position: ", sf.getDistance(DistanceUnit.MM));
+        telemetry.addData("Position: ", sl.getDistance(DistanceUnit.MM));
         telemetry.update();
         // Wait for start command from Driver Station.
         waitForStart();
         if (opModeIsActive()) {
-            Drive_to_Point("sr",100,false);
-//            liftEncoder(1, 3, 6, true);
-//            Drive_to_Point("sb", 9, true);
+//            Drive_to_Point("sl",100,false);
+            liftEncoder(1, 3, 6, true);
+            Drive_to_Point("sb", 9, true);
 //            Drive_to_Point("sb", 100, true);
 //            while (imu.getAngularOrientation().firstAngle > -88) {
 //                Drive("tr");
@@ -145,10 +145,10 @@ public class BlueRedAuto extends LinearOpMode {
             rb.setPower(-0.28);
             rf.setPower(-0.28);
         } else if (x.equals("sr")) {
-            lb.setPower(-0.85);
-            lf.setPower(0.75);
-            rb.setPower(0.8);
-            rf.setPower(-0.73);
+            lf.setPower(-0.75);
+            lb.setPower(0.85);
+            rb.setPower(-0.8);
+            rf.setPower(0.73);
         } else if (x.equals("sl")) {
             lf.setPower(-0.79);
             lb.setPower(0.72);
