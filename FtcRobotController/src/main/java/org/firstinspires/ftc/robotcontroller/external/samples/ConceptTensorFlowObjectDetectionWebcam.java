@@ -49,8 +49,8 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@TeleOp(name = "Concept: TensorFlow Object Detection Webcam", group = "Concept")
-@Disabled
+@TeleOp(name = "Conc234ept: TensorFlow Object Detection Webcam", group = "Concept")
+
 public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
 
     /*
@@ -60,14 +60,14 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
      * has been downloaded to the Robot Controller's SD FLASH memory, it must to be loaded using loadModelFromFile()
      * Here we assume it's an Asset.    Also see method initTfod() below .
      */
-    private static final String TFOD_MODEL_ASSET = "PowerPlay.tflite";
-    // private static final String TFOD_MODEL_FILE  = "/sdcard/FIRST/tflitemodels/CustomTeamModel.tflite";
+    //private static final String TFOD_MODEL_ASSET = "android.tflite";
+     private static final String TFOD_MODEL_FILE  = "/sdcard/FIRST/tflitemodels/model_20230201_114406.tflite";
 
 
     private static final String[] LABELS = {
-            "1 Bolt",
-            "2 Bulb",
-            "3 Panel"
+            "Blue",
+            "Green",
+            "Red"
     };
 
     /*
@@ -83,7 +83,7 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
      * and paste it in to your code on the next line, between the double quotes.
      */
     private static final String VUFORIA_KEY =
-            " -- YOUR NEW VUFORIA KEY GOES HERE  --- ";
+            "ARtN96z/////AAABmTArImGBeUbjrJcZ2KoqJm49WE9JNaPSnV/IqyjCAni9CbJZf8V7qhV5aIZnZKVYdmYXH8nJ5HldGIbnwIPuT6BRwZ+OstAr0B6z3OAO6QEt5RW7BU/yQ5T2GUS7RQrw4X0H2qyaH8NNXU9uNC7+DGKwx92ij468D94D5FzKEZabxCmq4XclCIJiIyanq0aN4yRNJSu65rODqXEWIlj8rS/012FMxss21JXySFuwoljsb/beJVTBMJqs0eA4/VFznpy7D9qUOsTNL6PbkBIjr7B9Lhbj9qf3zgj7+U5EoJYQOCySuJs/oSo0vp3yjEy1Yztgit/qOezHXG07VpYFD3+WU3mFDW76ewi1E9mVFlUT";
 
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
@@ -177,14 +177,16 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
             "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
-        tfodParameters.minResultConfidence = 0.75f;
+        tfodParameters.minResultConfidence = 0.8f;
+        tfodParameters.isModelQuantized = true;
         tfodParameters.isModelTensorFlow2 = true;
         tfodParameters.inputSize = 300;
+        tfodParameters.useObjectTracker = true;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
 
         // Use loadModelFromAsset() if the TF Model is built in as an asset by Android Studio
         // Use loadModelFromFile() if you have downloaded a custom team model to the Robot Controller's FLASH.
-        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
-        // tfod.loadModelFromFile(TFOD_MODEL_FILE, LABELS);
+        //tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
+         tfod.loadModelFromFile(TFOD_MODEL_FILE, LABELS);
     }
 }
