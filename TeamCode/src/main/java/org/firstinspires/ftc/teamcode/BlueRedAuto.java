@@ -19,7 +19,7 @@ import org.tensorflow.lite.task.vision.detector.ObjectDetector;
 import java.util.List;
 
 @Autonomous(name = "BasicRedBlueOpMode (Blocks to Java)")
-@Disabled
+
 public class BlueRedAuto extends LinearOpMode {
 
 
@@ -102,21 +102,8 @@ public class BlueRedAuto extends LinearOpMode {
 //                telemetry.update();
 //            }
 //           Drive("n");
-            liftEncoder(1, 18, 6, true);
-            while(sr.getDistance(DistanceUnit.MM)<1500){
-                Drive("sl");
-                if(sr.getDistance(DistanceUnit.MM)<800){
-                    lc.setPosition(0);
-                    rc.setPosition(1);
-
-                }
-                else{
-                    lc.setPosition(1);
-                    rc.setPosition(0);
-
-                }
-            }
-            Drive_to_Point("sr", 780, true);
+            //liftEncoder(1, 18, 6, true);
+            Drive_to_Point("sb",1000,false);
 //            Drive_to_Point("sf", 767, true);
 //            liftEncoder(1, 10, 6, true);
 //            liftEncoder(1, 17, 6, false);
