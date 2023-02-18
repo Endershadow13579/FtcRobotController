@@ -119,8 +119,13 @@ public class NewOpMode extends LinearOpMode {
         // Keep testing until ALL the wheels move the robot forward when you push the left joystick forward.
         leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
+<<<<<<< Updated upstream
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
+=======
+        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
+>>>>>>> Stashed changes
         leftFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.valueOf("BRAKE"));
         leftBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.valueOf("BRAKE"));
         rightBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.valueOf("BRAKE"));
@@ -190,9 +195,15 @@ public class NewOpMode extends LinearOpMode {
             // Combine the joystick requests for each axis-motion to determine each wheel's power.
             // Set up a variable for each drive wheel to save the power level for telemetry.
             double leftFrontPower = axial - lateral - yaw;
+<<<<<<< Updated upstream
             double rightFrontPower = axial*0.95 + lateral + yaw;
             double leftBackPower = -axial - lateral + yaw;
             double rightBackPower = axial*0.95 - lateral + yaw;
+=======
+            double rightFrontPower = axial*0.95 - lateral + yaw;
+            double leftBackPower = axial + lateral - yaw;
+            double rightBackPower = axial*0.95 + lateral + yaw;
+>>>>>>> Stashed changes
 
             // Normalize the values so no wheel power exceeds 100%
             // This ensures that the robot maintains the desired motion.

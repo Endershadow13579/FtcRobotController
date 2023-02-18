@@ -19,7 +19,11 @@ import org.tensorflow.lite.task.vision.detector.ObjectDetector;
 import java.util.List;
 
 @Autonomous(name = "BasicRedBlueOpMode (Blocks to Java)")
+<<<<<<< Updated upstream
 
+=======
+@Disabled
+>>>>>>> Stashed changes
 public class BlueRedAuto extends LinearOpMode {
 
 
@@ -49,7 +53,7 @@ public class BlueRedAuto extends LinearOpMode {
         int Drive_Gear_Reduction;
         double Wheel_Circumference_Inches;
         boolean programFinished;
-
+        int position =0;
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         lb = hardwareMap.get(DcMotor.class, "lb");
         lf = hardwareMap.get(DcMotor.class, "lf");
@@ -86,12 +90,28 @@ public class BlueRedAuto extends LinearOpMode {
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         telemetry.addData("Orientation: ", imu.getAngularOrientation());
-        telemetry.addData("Position: ", sl.getDistance(DistanceUnit.MM));
+        telemetry.addData("Position Left: ", sl.getDistance(DistanceUnit.MM));
+        telemetry.addData("Position Right: ", sr.getDistance(DistanceUnit.MM));
+
+        if((sr.getDistance(DistanceUnit.MM)<400) || (sr.getDistance(DistanceUnit.MM)>sl.getDistance(DistanceUnit.MM)))
+        {
+            position = 1;
+
+        }
+        else if (sr.getDistance(DistanceUnit.MM)<sl.getDistance(DistanceUnit.MM)) {
+            position = 2;
+        }
+        telemetry.addData("Signal Position: ", position);
+
         telemetry.update();
         // Wait for start command from Driver Station.
         waitForStart();
         if (opModeIsActive()) {
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
 //
 //            Drive_to_Point("sb", 9, true);
 //
@@ -102,12 +122,77 @@ public class BlueRedAuto extends LinearOpMode {
 //                telemetry.update();
 //            }
 //           Drive("n");
+<<<<<<< Updated upstream
             //liftEncoder(1, 18, 6, true);
             Drive_to_Point("sb",1000,false);
+=======
+            liftEncoder(1, 18, 6, true);
+            while(sr.getDistance(DistanceUnit.MM)<1500){
+                Drive("sl");
+                if(sr.getDistance(DistanceUnit.MM)<800){
+                    lc.setPosition(0);
+                    rc.setPosition(1);
+
+                }
+                else{
+                    lc.setPosition(1);
+                    rc.setPosition(0);
+
+                }
+            }
+            Drive_to_Point("sr", 780, true);
+>>>>>>> Stashed changes
 //            Drive_to_Point("sf", 767, true);
 //            liftEncoder(1, 10, 6, true);
 //            liftEncoder(1, 17, 6, false);
 //            Drive_to_Point("sf", 780, false);
+=======
+            Drive_to_Point("sb",900,false);
+            Drive_to_Point("sb",800,false);
+            while (imu.getAngularOrientation().firstAngle < -1){
+                Drive("tl");
+            }
+            Drive("n");
+            //Stop here if Signal 2:
+
+            if(position ==2){
+                // Signal 3
+//                Drive_to_Point("sr",500,false);
+//                while (imu.getAngularOrientation().firstAngle > 1){
+//                    Drive("tr");
+//                }
+//                Drive("n");
+//                Drive_to_Point("sr",200,false);
+                // Signal 1
+//                Drive_to_Point("sr",1155,false);
+//                while (imu.getAngularOrientation().firstAngle > 1){
+//                    Drive("tr");
+//                }
+//                Drive("n");
+//                Drive_to_Point("sb",800,false);
+//                Drive_to_Point("sr",1155,false);
+
+            }
+            else if (position ==1){
+                // Signal 1
+//                Drive_to_Point("sl",500,false);
+//                while (imu.getAngularOrientation().firstAngle > 1){
+//                    Drive("tr");
+//                }
+//                Drive("n");
+//                Drive_to_Point("sl",200,false);
+                // Signal 1
+                Drive_to_Point("sl",1140,false);
+
+                while (imu.getAngularOrientation().firstAngle > -178){
+                    Drive("tr");
+                }
+                Drive("n");
+                Drive_to_Point("sr",sr.getDistance(DistanceUnit.MM)-10,false);
+
+            }
+
+>>>>>>> Stashed changes
         }
     }
 
@@ -144,6 +229,7 @@ public class BlueRedAuto extends LinearOpMode {
      */
     private void Drive(String x) {
         if (x.equals("f")) {
+<<<<<<< Updated upstream
             lb.setPower(0.55);
             lf.setPower(0.56);
             rb.setPower(-0.5);
@@ -153,11 +239,22 @@ public class BlueRedAuto extends LinearOpMode {
             lf.setPower(-0.34);
             rb.setPower(0.28);
             rf.setPower(0.28);
+=======
+            lb.setPower(.80);
+            lf.setPower(.80);
+            rb.setPower(-.80);
+            rf.setPower(-.8);
+        } else if (x.equals("b")) {
+            lb.setPower(-.8);
+            lf.setPower(-.8);
+            rb.setPower(.8);
+            rf.setPower(.8);
+>>>>>>> Stashed changes
         } else if (x.equals("sr")) {
-            lf.setPower(-0.75);
-            lb.setPower(0.85);
-            rb.setPower(-0.8);
-            rf.setPower(0.73);
+            lf.setPower(0.75);
+            lb.setPower(-0.85);
+            rb.setPower(0.8);
+            rf.setPower(-0.73);
         } else if (x.equals("sl")) {
             lf.setPower(-0.79);
             lb.setPower(0.72);
@@ -184,7 +281,7 @@ public class BlueRedAuto extends LinearOpMode {
     /**
      * Describe this function...
      */
-    private void Drive_to_Point(String sense, int point, boolean claw) {
+    private void Drive_to_Point(String sense, double point, boolean claw) {
         if (sense.equals("sr")) {
             if (sr.getDistance(DistanceUnit.MM) < point) {
                 while (sr.getDistance(DistanceUnit.MM) < point) {
